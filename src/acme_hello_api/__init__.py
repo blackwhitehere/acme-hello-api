@@ -1,5 +1,5 @@
 from .app import (
-    api
+    api, hello_world
 )
 
 import logging

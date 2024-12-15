@@ -33,9 +33,17 @@ Or to run the code in docker container in a development mode:
 
 ### For production
 
-   fastapi run src/acme_hello_api
+Using the `.venv` python env you may run:
 
-Also see setup in dir `k8` for Kubernetes deployment setup.
+    fastapi run src/acme_hello_api
+
+Also see setup in dir `k8` for Kubernetes deployment setup:
+
+    minikube start
+    kubectl apply -k k8
+    kubectl config set-context --current --namespace=acme-namespace
+    minikube tunnel
+    curl http://localhost:80
 
 # Project template
 

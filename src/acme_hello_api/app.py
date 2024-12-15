@@ -3,5 +3,11 @@ from fastapi import FastAPI
 api = FastAPI()
 
 @api.get("/")
-def read_root():
-    return {"message": "Hello World 2!"}
+def hello_world():
+    """
+    Prints Hello World
+
+    Returns:
+        dict: hello world message
+    """
+    return {"message": "Hello World!"}
