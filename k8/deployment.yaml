@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acme-hello-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: acme-hello-api
+  template:
+    metadata:
+      labels:
+        app: acme-hello-api
+    spec:
+      containers:
+        - name: acme-hello-api
+          image: ghcr.io/blackwhitehere/acme-hello-api:latest
+          ports:
+            - containerPort: 8000

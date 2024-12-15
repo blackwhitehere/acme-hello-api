@@ -1,0 +1,13 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: acme-hello-api-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: acme-hello-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

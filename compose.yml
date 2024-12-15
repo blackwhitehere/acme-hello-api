@@ -1,0 +1,34 @@
+# Based on https://github.com/astral-sh/uv-docker-example
+# Run `docker compose up --watch` to start the development environment running in a container
+services:
+  web:
+    # Build the image from the Dockerfile in the current directory
+    container_name: acme-hello-api
+    working_dir: /app/src/acme_hello_api
+    build: .
+    command: ["fastapi", "run", "--reload", "/app/src/acme_hello_api"]
+    environment:
+        DEBUG: 1
+    # Host the FastAPI application on port 8000
+    ports:
+      - "8000:8000"
+    restart: on-failure
+
+    develop:
+      # Create a `watch` configuration to update the appl
+      # https://docs.docker.com/compose/file-watch/#compose-watch-versus-bind-mounts
+      watch:
+        # Sync the working directory with the `/app` directory in the container
+        - action: sync
+          path: .
+          target: /app
+          # Exclude the project virtual environment — it could be for a
+          # different platform in the container
+          ignore:
+            - .venv/
+
+        # Rebuild the image on changes to the `pyproject.toml`
+        - action: rebuild
+          path: ./pyproject.toml
+        - action: rebuild
+          path: ./Dockerfile
