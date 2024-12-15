@@ -23,11 +23,19 @@ If you are using VSCode, set to use this env via `Python: Select Interpreter` co
 
 ### For development
 
-    fastapi dev src/acme_hello_api/_main.py
+Using the `.venv` python env you may run:
+
+    fastapi dev src/acme_hello_api
+
+Or to run the code in docker container in a development mode:
+
+    docker compose up --watch
 
 ### For production
 
-   fastapi run src/acme_hello_api/_main.py
+   fastapi run src/acme_hello_api
+
+Also see setup in dir `k8` for Kubernetes deployment setup.
 
 # Project template
 
