@@ -1,9 +1,9 @@
 name: Build and Push Docker Image
 
 on:
-    push:
-        tags:
-            - 'release/*'
+  push:
+    tags:
+      - 'container-release/*'
 
 jobs:
   build-and-push:
