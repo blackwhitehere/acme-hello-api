@@ -13,8 +13,7 @@ dependencies = [ "python-dotenv", "fastapi[standard]" ]
 [[project.authors]]
 email = "guner.stan@gmail.com"
 
-[project.scripts]
-ahapi = "acme_hello_api._main:main"
+# [project.scripts]
 
 [project.urls]
 homepage = "https://example.com"
