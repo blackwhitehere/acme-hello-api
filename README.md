@@ -42,6 +42,8 @@ Also see setup in dir `k8` for Kubernetes deployment setup:
     kubectl apply -k k8
     kubectl config set-context --current --namespace=acme-namespace
     kubectl get services
+    # to access LoadBalancer service
+    # see: https://minikube.sigs.k8s.io/docs/start/?arch=%2Fmacos%2Farm64%2Fstable%2Fbinary+download#LoadBalancer
     minikube tunnel
     curl http://localhost:80
 
