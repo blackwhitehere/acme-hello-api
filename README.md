@@ -38,6 +38,7 @@ Or to run the code in docker container in a development mode:
 Also see setup in dir `k8` for Kubernetes deployment setup:
 
     minikube start
+    kubectl config use-context minikube
     kubectl apply -k k8
     kubectl config set-context --current --namespace=acme-namespace
     kubectl get services
