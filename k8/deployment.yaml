@@ -16,6 +16,9 @@ spec:
       containers:
         - name: acme-hello-api
           image: ghcr.io/blackwhitehere/acme-hello-api:latest
+          env:
+            - name: PUBLIC_ENV_VAR
+              value: hello_from_k8
           ports:
             - containerPort: 8000
           resources:

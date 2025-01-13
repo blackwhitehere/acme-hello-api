@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 
 api = FastAPI()
@@ -10,4 +12,6 @@ def hello_world():
     Returns:
         dict: hello world message
     """
-    return {"message": "Hello World!"}
+    env_var_value = os.getenv("PUBLIC_ENV_VAR", "default_value")
+    return {"message": "Hello World!",
+            "env_var_value": f"PUBLIC_ENV_VAR has value: {env_var_value}"}
