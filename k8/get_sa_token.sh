@@ -1,1 +1,1 @@
-kubectl -n acme-namespace get secret $(kubectl -n acme-namespace get sa/namespace-admin-sa -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
+kubectl -n acme-namespace get secret my-long-lived-secret -o go-template="{{.data.token | base64decode}}"

@@ -15,12 +15,12 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up kubectl
-        uses: azure/setup-kubectl@v1
+        uses: azure/setup-kubectl@v4
         with:
-          version: 'v1.21.0'
+          version: 'v1.31.0'
 
       - name: Configure kubectl
         run: |
@@ -47,4 +47,8 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -k /path/to/your/kustomization
+          kubectl apply -k k8
+
+      - name: Restart Deployments
+        run: |
+          kubectl rollout restart deployment -n acme-namespace

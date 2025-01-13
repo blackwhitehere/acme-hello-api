@@ -10,6 +10,7 @@ resources:
   # used for auth to cluster from e.g. CICD pipeline
   - role.yaml
   - serviceaccount.yaml
+  - sa_secret.yaml
   - rolebinding.yaml
 
 images:
