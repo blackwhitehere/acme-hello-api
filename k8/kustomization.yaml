@@ -7,6 +7,10 @@ resources:
   - namespace.yaml
   - deployment.yaml
   - service.yaml
+  # used for auth to cluster from e.g. CICD pipeline
+  - role.yaml
+  - serviceaccount.yaml
+  - rolebinding.yaml
 
 images:
   - name: acme-hello-api
