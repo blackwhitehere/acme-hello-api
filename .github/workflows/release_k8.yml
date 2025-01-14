@@ -6,12 +6,12 @@ on:
     workflows: ["Build and Push Docker Image"]
     types:
       - completed
-  workflow_dispatch:
+  workflow_dispatch: # allow manual triggering from GH UI
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: release-k8
+    environment: release-k8 # GH Actions environment needed by this pipeline that contains secrets
     permissions:
       contents: read
     steps:
@@ -22,29 +22,14 @@ jobs:
         uses: azure/setup-kubectl@v4
         with:
           version: 'v1.31.0'
-
-      - name: Configure kubectl
-        run: |
-          mkdir -p $HOME/.kube
-          echo "
-          apiVersion: v1
-          kind: Config
-          clusters:
-          - cluster:
-              server: ${{ secrets.K8S_SERVER }}
-              certificate-authority-data: ${{ secrets.K8S_CA_CERT }}
-            name: k8s-cluster
-          contexts:
-          - context:
-              cluster: k8s-cluster
-              user: admin-sa
-            name: admin-sa-context
-          current-context: admin-sa-context
-          users:
-          - name: admin-sa
-            user:
-              token: ${{ secrets.K8S_TOKEN }}
-          " > $HOME/.kube/config
+      
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save ${{ secrets.DIGITALOCEAN_K8_CLUSTER_NAME }}
 
       - name: Deploy to Kubernetes
         run: |
