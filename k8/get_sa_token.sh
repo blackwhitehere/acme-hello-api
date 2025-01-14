@@ -1,1 +1,0 @@
-kubectl -n acme-namespace get secret my-long-lived-secret -o go-template="{{.data.token | base64decode}}"
