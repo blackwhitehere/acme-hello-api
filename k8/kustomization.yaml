@@ -3,6 +3,11 @@ kind: Kustomization
 
 namespace: acme-namespace
 
+labels:
+- includeSelectors: true
+  pairs:
+    app: acme-hello-api
+
 resources:
   - namespace.yaml
   - deployment.yaml

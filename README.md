@@ -39,7 +39,7 @@ Also see setup in dir `k8` for Kubernetes deployment setup:
 
     minikube start
     kubectl config use-context minikube
-    kubectl apply -k k8
+    kubectl apply -k k8 --prune -l app=acme-hello-api
     kubectl config set-context --current --namespace=acme-namespace
     kubectl get services
     # to access LoadBalancer service
@@ -49,14 +49,14 @@ Also see setup in dir `k8` for Kubernetes deployment setup:
 
 # GitHub Action `release_k8.yml`
 
-`release_k8.yml` pipeline implements a CD pattern.
-It requires the first deployment to be performed manually by a user authenticated into the target k8 cluster.
-Following this, the command at `k8/get_sa_token.sh` can be run to provide value for `K8S_TOKEN` secret for the `admin-sa` ServiceAccount that will be performing the deployments.
-Values for secrets `K8S_SERVER` and `K8S_CA_CERT` can be obtained e.g. from `~/.kube/config` file.
+`release_k8.yml` pipeline implements a CD pattern to a K8 cluster running on DigitalOcean.
+The full auth procedure is explained here: [Link](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/#authenticate).
+You need to generate new API token in DigitalOcean by going to "API" section, click "Generate New Token", add "read" and "access_cluster" scope for "kubernetes" resource. Copy the token value, this is the value for `DIGITALOCEAN_ACCESS_TOKEN` secret.
+Copy the name of the k8 cluster, this is the value for `DIGITALOCEAN_K8_CLUSTER_NAME` secret.
 
 The pipeline relies on `release-k8` environment to exist in the GitHub repository. To create it, navigate to repository `Settings`, click `Environments` and `New environment`.
 
-After this add secrets `K8S_TOKEN`, `K8S_SERVER` and `K8S_CA_CERT` under `Environment secrets` of the `release-k8` environment.
+After this add secrets `DIGITALOCEAN_ACCESS_TOKEN`, `DIGITALOCEAN_K8_CLUSTER_NAME` under `Environment secrets` of the `release-k8` environment.
 
 # Project template
 
